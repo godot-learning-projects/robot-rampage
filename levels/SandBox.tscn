@@ -34,9 +34,9 @@ size = Vector3(64, 1, 64)
 [node name="obstacles" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.1375)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -7)
 use_collision = true
-size = Vector3(5, 2, 5)
+size = Vector3(5, 1, 5)
 
 [node name="Player" parent="." instance=ExtResource("1_ni7a8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
