@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0up5qblv1hqx"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_ecde8"]
+[ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_ssr7g"]
+[ext_resource type="Script" path="res://entities/player/CrossAim.gd" id="3_bsal1"]
+[ext_resource type="PackedScene" uid="uid://dh5vemfh03qks" path="res://entities/weapons/glock/weapon_glock.tscn" id="3_g4lid"]
+[ext_resource type="PackedScene" uid="uid://d2fd687wtg4q3" path="res://entities/godot_robot.tscn" id="6_1sjus"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ckwju"]
+
+[node name="Player" type="CharacterBody3D" groups=["PLAYER"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_ecde8")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.4)
+
+[node name="SmoothCamera" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -0.4)
+top_level = true
+script = ExtResource("2_ssr7g")
+
+[node name="glock" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_g4lid")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.236424, -0.240214, -0.451486)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Control" parent="CenterContainer"]
+layout_mode = 2
+script = ExtResource("3_bsal1")
+
+[node name="GodotRobot" parent="." instance=ExtResource("6_1sjus")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ckwju")

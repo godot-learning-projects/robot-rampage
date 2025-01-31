@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh5vemfh03qks"]
+
+[ext_resource type="PackedScene" uid="uid://82efnjp2vpbc" path="res://entities/weapons/weapon.tscn" id="1_gfrgy"]
+[ext_resource type="PackedScene" uid="uid://b8cm82diluxj5" path="res://entities/weapons/glock/glock.tscn" id="2_4l30l"]
+
+[node name="glock" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_gfrgy")]
+weapon_mesh = NodePath("glock")
+
+[node name="Misfire" parent="SFX" index="0"]
+volume_db = -5.0
+unit_size = 5.0
+max_db = 1.0
+
+[node name="Reload" parent="SFX" index="1"]
+volume_db = -16.762
+max_db = 1.0
+
+[node name="Fire" parent="SFX" index="2"]
+max_db = 2.0
+
+[node name="RayCast3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.0280527, 0.0897873, 0.188597)
+target_position = Vector3(0, 0, -50)
+
+[node name="CooldownTimer" parent="." index="2"]
+one_shot = true
+
+[node name="glock" parent="." index="3" instance=ExtResource("2_4l30l")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
