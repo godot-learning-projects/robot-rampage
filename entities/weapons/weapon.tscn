@@ -1,12 +1,61 @@
-[gd_scene load_steps=5 format=3 uid="uid://82efnjp2vpbc"]
+[gd_scene load_steps=12 format=3 uid="uid://82efnjp2vpbc"]
 
-[ext_resource type="Script" path="res://entities/player/weapon.gd" id="1_pbu5t"]
+[ext_resource type="Script" path="res://entities/weapons/weapon.gd" id="1_pbu5t"]
 [ext_resource type="AudioStream" uid="uid://bvrmmalumrntd" path="res://entities/weapons/glock/SFX/misfire.mp3" id="2_02al5"]
+[ext_resource type="PackedScene" uid="uid://clf0p7njb6pf5" path="res://assets/sparks/sparks.tscn" id="2_sgvq3"]
 [ext_resource type="AudioStream" uid="uid://dvj60mcwiusgu" path="res://entities/weapons/glock/SFX/reload.mp3" id="3_dkp28"]
 [ext_resource type="AudioStream" uid="uid://bastj6bf6wawn" path="res://entities/weapons/glock/SFX/fire.mp3" id="4_lgyny"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rv3x4"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Curve" id="Curve_0g4r2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.1, 0.5), 0.0, 0.0, 0, 0, Vector2(0.15, 0), 0.13045, 0.13045, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_57p44"]
+curve = SubResource("Curve_0g4r2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2qeuk"]
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(0, 0, 0)
+spread = 12.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_57p44")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbrml"]
+albedo_color = Color(0.737603, 0.564209, 0.0292415, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mx1gk"]
+material = SubResource("StandardMaterial3D_tbrml")
+radius = 0.05
+height = 0.1
+
 [node name="Weapon" type="Node3D"]
 script = ExtResource("1_pbu5t")
+hit_sparks = ExtResource("2_sgvq3")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+
+[node name="ActionParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0274715, 0.0914022, 0.205222)
+material_override = SubResource("StandardMaterial3D_rv3x4")
+cast_shadow = 0
+lifetime = 0.5
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_2qeuk")
+draw_pass_1 = SubResource("SphereMesh_mx1gk")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -100)
+debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [node name="SFX" type="Node3D" parent="."]
 
@@ -18,9 +67,3 @@ stream = ExtResource("3_dkp28")
 
 [node name="Fire" type="AudioStreamPlayer3D" parent="SFX"]
 stream = ExtResource("4_lgyny")
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -100)
-debug_shape_custom_color = Color(1, 0, 0, 1)
-
-[node name="CooldownTimer" type="Timer" parent="."]

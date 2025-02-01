@@ -10,6 +10,10 @@ var mouse_motion := Vector2.ZERO
 @export var max_health: int = 50
 var health: int = max_health:
 	set(value):
+		if(value < health):
+			_take_damage()
+		else:
+			_heal()
 		health = value
 		if health <= 0:
 			get_tree().quit()
@@ -18,6 +22,7 @@ var health: int = max_health:
 @export var fall_multiplier: float = 2.0
 @export var jump_height: float = 1
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var smooth_camera: Camera3D = $CameraPivot/SmoothCamera
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var godot_robot: Node3D = $GodotRobot
@@ -27,7 +32,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
-	handle_camera_rotation()
+	_handle_camera_rotation()
 	# Add the gravity.
 	if not is_on_floor():
 		if velocity.y >= 0:
@@ -73,7 +78,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("control_cancel"):
 		get_tree().quit()
 
-func handle_camera_rotation() -> void:
+func _handle_camera_rotation() -> void:
 	rotate_y(mouse_motion.x)
 	camera_pivot.rotate_x(mouse_motion.y)
 	camera_pivot.rotation_degrees.x = clampf(
@@ -81,3 +86,9 @@ func handle_camera_rotation() -> void:
 		-70.0, 80.0
 	)
 	mouse_motion = Vector2.ZERO
+
+func _take_damage() -> void:
+	animation_player.play("DamageView")
+
+func _heal() -> void:
+	pass

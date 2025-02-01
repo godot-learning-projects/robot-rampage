@@ -17,6 +17,7 @@ var health: int = max_health:
 			queue_free()
 
 @export var damage: int = 20
+@export var attack_cooldown: float = 2.0 #Seconds
 @export var attack_range: float = 1.5
 @export var aggressive_range: float = 10.0
 @export var watch_range: float = aggressive_range + 5.0
@@ -26,6 +27,7 @@ var health: int = max_health:
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var godot_robot: Node3D = $"GodotRobot"
 
+@onready var cooldown_timer: Timer = $CooldownTimer
 
 
 func _ready() -> void:
@@ -52,12 +54,10 @@ func _physics_process(delta: float) -> void:
 	if distance < aggressive_range:
 		provoked = true
 
-	if distance < watch_range:
-		look_at_target(direction)
+
 		
-	if distance < attack_range:
-		godot_robot.animation_play("Kick")
-		player.health -= damage
+	if distance < attack_range and cooldown_timer.is_stopped():
+		attack()
 	
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -67,9 +67,12 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 		
 	if provoked:
+		look_at_target(direction)
 		if distance > attack_range:
 			godot_robot.animation_play("Run")
 		move_and_slide()
+	elif distance < watch_range:
+		look_at_target(direction)
 	else:
 		godot_robot.animation_play("Idle")
 		
@@ -78,6 +81,10 @@ func look_at_target(target: Vector3) -> void:
 	var target_vector = target
 	target_vector.y = 0
 	target_vector = global_position + target_vector
-	
-	if abs(self.position.angle_to(target_vector)) > 0.01:
+	if abs(self.position.angle_to(target_vector)) > 0.001:
 		look_at(target_vector, Vector3.UP, true)
+
+func attack() -> void:
+	godot_robot.animation_play("Kick")
+	player.health -= damage
+	cooldown_timer.start(attack_cooldown)

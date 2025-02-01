@@ -16,7 +16,6 @@ func _physics_process(delta: float) -> void:
 
 
 func change_view_mode() -> void:
-	print('changes')
 	if fps_view_mode:
 		fps_view_mode = false
 		get_parent().global_position = get_parent().global_position + Vector3(0,1.2,-2.4)

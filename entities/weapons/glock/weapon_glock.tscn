@@ -1,10 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh5vemfh03qks"]
+[gd_scene load_steps=4 format=3 uid="uid://dh5vemfh03qks"]
 
 [ext_resource type="PackedScene" uid="uid://82efnjp2vpbc" path="res://entities/weapons/weapon.tscn" id="1_gfrgy"]
 [ext_resource type="PackedScene" uid="uid://b8cm82diluxj5" path="res://entities/weapons/glock/glock.tscn" id="2_4l30l"]
+[ext_resource type="Script" path="res://entities/weapons/glock/weapon_glock.gd" id="2_xglx2"]
 
-[node name="glock" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_gfrgy")]
-weapon_mesh = NodePath("glock")
+[node name="glock" instance=ExtResource("1_gfrgy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.25, -0.4)
+script = ExtResource("2_xglx2")
+hit_sparks = null
+
+[node name="CooldownTimer" parent="." index="0"]
+one_shot = true
+
+[node name="ActionParticles" parent="." index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0287268, 0.0935387, -0.207378)
+layers = 1024
+emitting = false
+one_shot = true
+
+[node name="RayCast3D" parent="." index="2"]
+transform = Transform3D(-1, -7.64274e-15, 8.74228e-08, 0, -1, -8.74228e-08, 8.74228e-08, -8.74228e-08, 1, -0.0281931, 0.0913673, -0.161458)
+target_position = Vector3(0, 0, -50)
 
 [node name="Misfire" parent="SFX" index="0"]
 volume_db = -5.0
@@ -18,12 +34,20 @@ max_db = 1.0
 [node name="Fire" parent="SFX" index="2"]
 max_db = 2.0
 
-[node name="RayCast3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.0280527, 0.0897873, 0.188597)
-target_position = Vector3(0, 0, -50)
+[node name="glock" parent="." index="4" instance=ExtResource("2_4l30l")]
+transform = Transform3D(-0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, 0, 0, 0)
 
-[node name="CooldownTimer" parent="." index="2"]
-one_shot = true
+[node name="Plane" parent="glock" index="0"]
+layers = 1024
 
-[node name="glock" parent="." index="3" instance=ExtResource("2_4l30l")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="Plane_001" parent="glock" index="1"]
+layers = 1024
+
+[node name="Plane_002" parent="glock" index="2"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+layers = 1024
+
+[node name="Cylinder" parent="glock" index="3"]
+layers = 1024
+
+[editable path="glock"]

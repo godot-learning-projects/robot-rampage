@@ -9,6 +9,9 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_tn41a")
 
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="GodotRobot" parent="." instance=ExtResource("2_tun1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
