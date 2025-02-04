@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0up5qblv1hqx"]
+[gd_scene load_steps=12 format=3 uid="uid://c0up5qblv1hqx"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_ecde8"]
 [ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_ssr7g"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dh5vemfh03qks" path="res://entities/weapons/glock/weapon_glock.tscn" id="3_g4lid"]
 [ext_resource type="PackedScene" uid="uid://d2fd687wtg4q3" path="res://entities/godot_robot.tscn" id="6_1sjus"]
 [ext_resource type="Texture2D" uid="uid://c2uakqludx5vp" path="res://entities/player/damage.png" id="6_ndej4"]
+[ext_resource type="PackedScene" uid="uid://dxuhhtinsf1bu" path="res://interfaces/game_over_menu/game_over_menu.tscn" id="7_qkfmr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ckwju"]
 height = 1.81164
@@ -113,6 +114,7 @@ script = ExtResource("2_ssr7g")
 remote_path = NodePath("../../../WeaponCamera/SubViewport/Camera3D")
 
 [node name="glock" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_g4lid")]
+transform = Transform3D(0.993126, 0, 0.117052, -6.33313e-05, 1, 0.000537333, -0.117052, -0.000541052, 0.993126, 0.3, -0.25, -0.4)
 
 [node name="GodotRobot" parent="." instance=ExtResource("6_1sjus")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
@@ -140,14 +142,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -0.4)
 cull_mask = 1024
 fov = 60.0
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="AimDot" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Crosshair" type="Control" parent="CenterContainer"]
+[node name="Crosshair" type="Control" parent="AimDot"]
 layout_mode = 2
 script = ExtResource("3_bsal1")
 
@@ -178,3 +180,6 @@ texture = ExtResource("6_ndej4")
 libraries = {
 "": SubResource("AnimationLibrary_cqa75")
 }
+
+[node name="GameOverMenu" parent="." instance=ExtResource("7_qkfmr")]
+visible = false

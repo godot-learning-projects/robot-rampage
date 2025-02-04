@@ -16,7 +16,8 @@ var health: int = max_health:
 			_heal()
 		health = value
 		if health <= 0:
-			get_tree().quit()
+			aim_dot.visible = false
+			game_over_menu.game_over()
 
 
 @export var fall_multiplier: float = 2.0
@@ -26,6 +27,9 @@ var health: int = max_health:
 @onready var smooth_camera: Camera3D = $CameraPivot/SmoothCamera
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var godot_robot: Node3D = $GodotRobot
+
+@onready var game_over_menu: Control = $GameOverMenu
+@onready var aim_dot: CenterContainer = $AimDot
 
 
 func _ready() -> void:

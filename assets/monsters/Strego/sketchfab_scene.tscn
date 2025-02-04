@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c17nrvdq02g7d"]
+
+[ext_resource type="PackedScene" uid="uid://caqfot20xomln" path="res://assets/monsters/Strego/strego.glb" id="1_a0nib"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_a0nib")]
+
+[node name="Weapons_2" parent="Sketchfab_model/root/GLTF_SceneRootNode" index="2"]
+visible = false
