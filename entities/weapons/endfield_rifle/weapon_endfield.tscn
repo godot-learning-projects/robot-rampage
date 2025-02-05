@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn0ltdakaai47"]
+
+[ext_resource type="PackedScene" uid="uid://82efnjp2vpbc" path="res://entities/weapons/weapon.tscn" id="1_jwxy5"]
+[ext_resource type="ArrayMesh" uid="uid://dedpgp17hyect" path="res://assets/weapons/gun/rifle/Dx01_2_Enfield_transformF_static_exp.obj" id="2_dndfi"]
+
+[node name="Endfield" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_jwxy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.25, -0.4)
+fire_rate = 1.65
+damage = 70
+weapon_mesh = NodePath("Mesh")
+
+[node name="CooldownTimer" parent="." index="0"]
+one_shot = true
+
+[node name="ActionParticles" parent="." index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0007599, 0.101929, -1.03847)
+layers = 1025
+emitting = false
+amount = 12
+one_shot = true
+
+[node name="RayCast3D" parent="." index="2"]
+transform = Transform3D(-1, -7.64274e-15, 8.74228e-08, 0, -1, -8.74228e-08, 8.74228e-08, -8.74228e-08, 1, 4.26471e-05, 0.101675, -0.922659)
+target_position = Vector3(0, 0, -50)
+
+[node name="Misfire" parent="SFX" index="0"]
+volume_db = -5.0
+unit_size = 5.0
+max_db = 1.0
+
+[node name="Reload" parent="SFX" index="1"]
+volume_db = -16.762
+max_db = 1.0
+
+[node name="Fire" parent="SFX" index="2"]
+max_db = 2.0
+
+[node name="Mesh" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+layers = 1024
+mesh = ExtResource("2_dndfi")

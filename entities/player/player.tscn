@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0up5qblv1hqx"]
+[gd_scene load_steps=14 format=3 uid="uid://c0up5qblv1hqx"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_ecde8"]
 [ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_ssr7g"]
 [ext_resource type="Script" path="res://entities/player/CrossAim.gd" id="3_bsal1"]
+[ext_resource type="Script" path="res://entities/player/weapon_handler.gd" id="3_dodvj"]
 [ext_resource type="PackedScene" uid="uid://dh5vemfh03qks" path="res://entities/weapons/glock/weapon_glock.tscn" id="3_g4lid"]
+[ext_resource type="PackedScene" uid="uid://cn0ltdakaai47" path="res://entities/weapons/endfield_rifle/weapon_endfield.tscn" id="4_5m0e4"]
 [ext_resource type="PackedScene" uid="uid://d2fd687wtg4q3" path="res://entities/godot_robot.tscn" id="6_1sjus"]
 [ext_resource type="Texture2D" uid="uid://c2uakqludx5vp" path="res://entities/player/damage.png" id="6_ndej4"]
 [ext_resource type="PackedScene" uid="uid://dxuhhtinsf1bu" path="res://interfaces/game_over_menu/game_over_menu.tscn" id="7_qkfmr"]
@@ -113,8 +115,14 @@ script = ExtResource("2_ssr7g")
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
 remote_path = NodePath("../../../WeaponCamera/SubViewport/Camera3D")
 
-[node name="glock" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_g4lid")]
-transform = Transform3D(0.993126, 0, 0.117052, -6.33313e-05, 1, 0.000537333, -0.117052, -0.000541052, 0.993126, 0.3, -0.25, -0.4)
+[node name="WeaponHandler" type="Node3D" parent="CameraPivot/SmoothCamera" node_paths=PackedStringArray("weapon_1", "weapon_2")]
+script = ExtResource("3_dodvj")
+weapon_1 = NodePath("Glock")
+weapon_2 = NodePath("Endfield")
+
+[node name="Glock" parent="CameraPivot/SmoothCamera/WeaponHandler" instance=ExtResource("3_g4lid")]
+
+[node name="Endfield" parent="CameraPivot/SmoothCamera/WeaponHandler" instance=ExtResource("4_5m0e4")]
 
 [node name="GodotRobot" parent="." instance=ExtResource("6_1sjus")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
@@ -129,6 +137,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="WeaponCamera"]
@@ -148,6 +157,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="AimDot"]
 layout_mode = 2

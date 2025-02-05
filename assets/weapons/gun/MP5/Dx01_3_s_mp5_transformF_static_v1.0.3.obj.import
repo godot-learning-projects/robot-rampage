@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://blxiiub6ocmew"
+path="res://.godot/imported/Dx01_3_s_mp5_transformF_static_v1.0.3.obj-d04384156187de0ca5692705834f7cd4.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Dx01_3_s_mp5_transformF_static_v1.0.3.obj-d04384156187de0ca5692705834f7cd4.mesh"]
+
+source_file="res://assets/weapons/gun/MP5/Dx01_3_s_mp5_transformF_static_v1.0.3.obj"
+dest_files=["res://.godot/imported/Dx01_3_s_mp5_transformF_static_v1.0.3.obj-d04384156187de0ca5692705834f7cd4.mesh", "res://.godot/imported/Dx01_3_s_mp5_transformF_static_v1.0.3.obj-d04384156187de0ca5692705834f7cd4.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,8 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8cm82diluxj5"]
 
-[ext_resource type="PackedScene" uid="uid://00u8qcejnwgy" path="res://assets/gun/glock/gun.glb" id="1_pk52j"]
+[ext_resource type="PackedScene" uid="uid://00u8qcejnwgy" path="res://assets/weapons/gun/glock/gun.glb" id="1_c0uid"]
 
-[node name="glock" instance=ExtResource("1_pk52j")]
+[node name="Glock" instance=ExtResource("1_c0uid")]
+
+[node name="Plane" parent="." index="0"]
+layers = 1024
+
+[node name="Plane_001" parent="." index="1"]
+layers = 1024
 
 [node name="Plane_002" parent="." index="2"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, -0.169768)
+layers = 1024
+
+[node name="Cylinder" parent="." index="3"]
+layers = 1024
