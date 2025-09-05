@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://b2nbselgpx5l" path="res://levels/materials/green.tres" id="1_w1fb8"]
 [ext_resource type="Material" uid="uid://cy3xcwa66o6g8" path="res://levels/materials/grey.tres" id="1_x0p06"]
 [ext_resource type="Material" uid="uid://ddw2tpaip0vh1" path="res://levels/materials/orange.tres" id="3_kmnid"]
-[ext_resource type="PackedScene" uid="uid://ou73nocysfb3" path="res://entities/Enemy/enemy.tscn" id="5_jnuq6"]
+[ext_resource type="PackedScene" uid="uid://ou73nocysfb3" path="res://entities/enemy/enemy.tscn" id="5_jnuq6"]
 [ext_resource type="PackedScene" uid="uid://dfkvb8paac0dv" path="res://pickups/_9_mm_pickup.tscn" id="6_0a62d"]
 [ext_resource type="PackedScene" uid="uid://yu0e2dyvtehf" path="res://pickups/_308_pickup.tscn" id="7_d6asj"]
 
