@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://k3ep1cjqf4c1"]
 
-[ext_resource type="PackedScene" uid="uid://d1qk00xeeqjcq" path="res://assets/taila/source/sktail2a.glb" id="1_sibmv"]
+[ext_resource type="PackedScene" uid="uid://d1qk00xeeqjcq" path="res://assets/persons/taila/source/sktail2a.glb" id="1_sibmv"]
 
 [node name="sktail2a" instance=ExtResource("1_sibmv")]
 

@@ -69,8 +69,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qaqf5"]
 _data = {
-"RESET": SubResource("Animation_2jmsf"),
-"Spark": SubResource("Animation_5p6lq")
+&"RESET": SubResource("Animation_2jmsf"),
+&"Spark": SubResource("Animation_5p6lq")
 }
 
 [node name="Sparks" type="GPUParticles3D"]

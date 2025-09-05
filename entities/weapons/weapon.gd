@@ -5,20 +5,24 @@ class_name Weapon
 @export var fire_rate: float = 2.0 # Times per second
 @export var damage: int = 10
 
+@export var aim_magnification: float = 1.0
+
 @export var _active_firing_mode: firing_modes = firing_modes.SINGLE
 @export var possible_firing_modes: Array[firing_modes] = [
 	firing_modes.SAFE,
 	firing_modes.SINGLE
 ]
 
-@export var ammo_max_capacity: int = 7
+@export var ammo_type: AmmoHandler.ammo_type
+
+@export var ammo_max_capacity: int
 @export var recoil: float = 0.05
 
 @export var hit_sparks: PackedScene
 
-@export var weapon_mesh: Node3D
-@onready var weapon_position: Vector3 = weapon_mesh.position
+@export var _weapon_mesh: Node3D
 
+@onready var weapon_position: Vector3 = _weapon_mesh.position
 
 @onready var ray_cast: RayCast3D = $RayCast3D
 
@@ -45,8 +49,10 @@ var firing_types: Dictionary = {
 	firing_modes.AUTO: "is_action_pressed"
 }
 
-
 var _ammo: int
+var _ammo_label: Label
+var _ammo_handler: AmmoHandler
+
 func _ready() -> void:
 	if _active_firing_mode not in possible_firing_modes:
 		push_error(
@@ -67,8 +73,9 @@ func _ready() -> void:
 	nozzle_particles.lifetime = 1.0 / fire_rate
 	nozzle_particles.emitting = false
 	nozzle_particles.one_shot = true
-	_ammo = ammo_max_capacity
-
+	_ammo = 2
+	
+	reload_sfx.finished.connect(_on_reload_sfx_finished)
 
 func _process(delta: float) -> void:
 	var firing_function = Callable(Input, firing_types[_active_firing_mode])
@@ -79,24 +86,34 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("control_reload"):
 		reload()
 	
-	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, delta * 10.0)
+	_weapon_mesh.position = _weapon_mesh.position.lerp(weapon_position, delta * 10.0)
 
 func shoot(_firing_mode) -> void:
 	if _ammo > 0 and _firing_mode != firing_modes.SAFE:
-		weapon_mesh.position.z -= recoil
+		_weapon_mesh.position.z -= recoil
 		cooldown_timer.start(1.0 / fire_rate)
 		fire_sfx.play()
 		nozzle_particles.restart()
 		hit(ray_cast.get_collider(), ray_cast.get_collision_point())
 		_ammo -= 1
+		_ammo_label.text = str(_ammo)
 	else:
 		cooldown_timer.start(0.5)
 		misfire_sfx.play()
 
+
 func reload() -> void:
-	cooldown_timer.start(reload_time)
-	reload_sfx.play()
-	_ammo = ammo_max_capacity
+	var available_ammo: int = _ammo_handler.use_ammo(ammo_type, ammo_max_capacity)
+	if available_ammo > 0:
+		cooldown_timer.start(reload_time)
+		reload_sfx.play()
+		_ammo = available_ammo
+	else: misfire_sfx.play()
+
+func _on_reload_sfx_finished() -> void:
+	_ammo_label.text = str(_ammo)
+	cooldown_timer.stop()
+
 
 func hit(target: Object, collision_point: Vector3) -> void:
 	if target:
@@ -107,6 +124,10 @@ func hit(target: Object, collision_point: Vector3) -> void:
 		add_child(spark)
 		spark.global_position = collision_point
 
+
+func set_ammo_manager(ammo_label: Label, ammo_handler: AmmoHandler):
+	_ammo_handler = ammo_handler
+	_ammo_label = ammo_label
 
 func _array_remove_duplicity(array: Array) -> Array:
 	var unique: Array = []

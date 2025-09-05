@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2fd687wtg4q3"]
 
-[ext_resource type="PackedScene" uid="uid://cfytg7k8x5n5y" path="res://assets/godot_robot/3DGodotRobot.glb" id="1_87274"]
-[ext_resource type="Script" path="res://entities/godot_robot.gd" id="2_jolhy"]
+[ext_resource type="PackedScene" uid="uid://cfytg7k8x5n5y" path="res://assets/persons/godot_robot/3DGodotRobot.glb" id="1_87274"]
+[ext_resource type="Script" uid="uid://dcda5oxvt6yy2" path="res://entities/godot_robot.gd" id="2_jolhy"]
 
 [node name="GodotRobot" instance=ExtResource("1_87274")]
 script = ExtResource("2_jolhy")

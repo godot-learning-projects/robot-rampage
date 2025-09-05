@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dxuhhtinsf1bu"]
 
 [ext_resource type="FontFile" uid="uid://bquv8pbkj2mgk" path="res://assets/fonts/Oswald/static/Oswald-Bold.ttf" id="1_37hvk"]
-[ext_resource type="Script" path="res://interfaces/game_over_menu/game_over_menu.gd" id="2_uv2lt"]
+[ext_resource type="Script" uid="uid://bav45qwq2hq6y" path="res://interfaces/game_over_menu/game_over_menu.gd" id="2_uv2lt"]
 [ext_resource type="Shader" uid="uid://b2aogvbxxxpsl" path="res://interfaces/game_over_menu/game_over_menu.tres" id="3_3cpfw"]
 
 [sub_resource type="Theme" id="Theme_frpi5"]

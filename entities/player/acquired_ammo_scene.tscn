@@ -1,0 +1,118 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvejar7lllqyw"]
+
+[ext_resource type="Script" uid="uid://c764a31imyhyx" path="res://entities/player/acquired_ammo_scene.gd" id="1_24olb"]
+[ext_resource type="FontFile" uid="uid://bquv8pbkj2mgk" path="res://assets/fonts/Oswald/static/Oswald-Bold.ttf" id="2_y5jvb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6thir"]
+font = ExtResource("2_y5jvb")
+font_size = 24
+
+[sub_resource type="Animation" id="Animation_6wtdp"]
+resource_name = "AcquiredAmmo"
+length = 2.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AcquiredAmmoMarginContainer/AcquiredAmmoLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AcquiredAmmoMarginContainer/AcquiredAmmoLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AcquiredAmmoMarginContainer:theme_override_constants/margin_bottom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [90, 145]
+}
+
+[sub_resource type="Animation" id="Animation_mfy2g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AcquiredAmmoMarginContainer/AcquiredAmmoLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AcquiredAmmoMarginContainer/AcquiredAmmoLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AcquiredAmmoMarginContainer:theme_override_constants/margin_bottom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [90]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5w0ba"]
+_data = {
+&"AcquiredAmmo": SubResource("Animation_6wtdp"),
+&"RESET": SubResource("Animation_mfy2g")
+}
+
+[node name="AcquiredAmmoHUD" type="Container"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_24olb")
+
+[node name="AcquiredAmmoMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = 90
+
+[node name="AcquiredAmmoLabel" type="Label" parent="AcquiredAmmoMarginContainer"]
+layout_mode = 2
+text = "+ ammo_acquired"
+label_settings = SubResource("LabelSettings_6thir")
+horizontal_alignment = 2
+
+[node name="AmmoHandlerAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5w0ba")
+}
+
+[connection signal="animation_finished" from="AmmoHandlerAnimation" to="." method="_on_ammo_handler_animation_animation_finished"]

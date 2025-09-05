@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ou73nocysfb3"]
 
-[ext_resource type="Script" path="res://entities/Enemy/enemy.gd" id="1_tn41a"]
+[ext_resource type="Script" uid="uid://8x6xrls1s5yt" path="res://entities/Enemy/enemy.gd" id="1_tn41a"]
 [ext_resource type="PackedScene" uid="uid://d2fd687wtg4q3" path="res://entities/godot_robot.tscn" id="2_tun1a"]
 [ext_resource type="PackedScene" uid="uid://c17nrvdq02g7d" path="res://assets/monsters/Strego/sketchfab_scene.tscn" id="3_b02sa"]
 

@@ -3,11 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://82efnjp2vpbc" path="res://entities/weapons/weapon.tscn" id="1_jwxy5"]
 [ext_resource type="ArrayMesh" uid="uid://dedpgp17hyect" path="res://assets/weapons/gun/rifle/Dx01_2_Enfield_transformF_static_exp.obj" id="2_dndfi"]
 
-[node name="Endfield" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_jwxy5")]
+[node name="Endfield" node_paths=PackedStringArray("_weapon_mesh") instance=ExtResource("1_jwxy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.25, -0.4)
 fire_rate = 1.65
 damage = 70
-weapon_mesh = NodePath("Mesh")
+aim_magnification = 0.2
+ammo_type = 15
+_weapon_mesh = NodePath("Mesh")
 
 [node name="CooldownTimer" parent="." index="0"]
 one_shot = true

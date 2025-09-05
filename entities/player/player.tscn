@@ -1,17 +1,27 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0up5qblv1hqx"]
+[gd_scene load_steps=18 format=3 uid="uid://c0up5qblv1hqx"]
 
-[ext_resource type="Script" path="res://entities/player/player.gd" id="1_ecde8"]
-[ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_ssr7g"]
-[ext_resource type="Script" path="res://entities/player/CrossAim.gd" id="3_bsal1"]
-[ext_resource type="Script" path="res://entities/player/weapon_handler.gd" id="3_dodvj"]
+[ext_resource type="Script" uid="uid://bqg5u3vbhr6w4" path="res://entities/player/player.gd" id="1_ecde8"]
+[ext_resource type="Script" uid="uid://bke6ryuycga1y" path="res://entities/player/player_camera.gd" id="2_ssr7g"]
+[ext_resource type="Script" uid="uid://x754mahmmlp4" path="res://entities/player/CrossAim.gd" id="3_bsal1"]
+[ext_resource type="Script" uid="uid://bwm3j27qwrfeb" path="res://entities/player/weapon_handler.gd" id="3_dodvj"]
 [ext_resource type="PackedScene" uid="uid://dh5vemfh03qks" path="res://entities/weapons/glock/weapon_glock.tscn" id="3_g4lid"]
 [ext_resource type="PackedScene" uid="uid://cn0ltdakaai47" path="res://entities/weapons/endfield_rifle/weapon_endfield.tscn" id="4_5m0e4"]
 [ext_resource type="PackedScene" uid="uid://d2fd687wtg4q3" path="res://entities/godot_robot.tscn" id="6_1sjus"]
+[ext_resource type="Script" uid="uid://b2oew1qyb6d1i" path="res://entities/player/ammo_handler.gd" id="6_7thud"]
 [ext_resource type="Texture2D" uid="uid://c2uakqludx5vp" path="res://entities/player/damage.png" id="6_ndej4"]
 [ext_resource type="PackedScene" uid="uid://dxuhhtinsf1bu" path="res://interfaces/game_over_menu/game_over_menu.tscn" id="7_qkfmr"]
+[ext_resource type="FontFile" uid="uid://bnkkmv7ar7y2l" path="res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="9_wvtmh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ckwju"]
 height = 1.81164
+
+[sub_resource type="LabelSettings" id="LabelSettings_a1qjk"]
+font = ExtResource("9_wvtmh")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_7thud"]
+font = ExtResource("9_wvtmh")
+font_size = 32
 
 [sub_resource type="Animation" id="Animation_j2qgf"]
 resource_name = "Damage"
@@ -20,7 +30,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ViewFilters/DamageTexture:visible")
+tracks/0/path = NodePath("DamageTexture:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -32,19 +42,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ViewFilters/DamageTexture:scale")
+tracks/1/path = NodePath("DamageTexture:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(-2, -2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.5, 1.5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ViewFilters/DamageTexture:modulate")
+tracks/2/path = NodePath("DamageTexture:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -54,12 +64,12 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_uya8m"]
+[sub_resource type="Animation" id="Animation_7thud"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ViewFilters/DamageTexture:visible")
+tracks/0/path = NodePath("DamageTexture:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -71,7 +81,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ViewFilters/DamageTexture:scale")
+tracks/1/path = NodePath("DamageTexture:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -83,7 +93,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ViewFilters/DamageTexture:modulate")
+tracks/2/path = NodePath("DamageTexture:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -95,8 +105,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cqa75"]
 _data = {
-"DamageView": SubResource("Animation_j2qgf"),
-"RESET": SubResource("Animation_uya8m")
+&"DamageView": SubResource("Animation_j2qgf"),
+&"RESET": SubResource("Animation_7thud")
 }
 
 [node name="Player" type="CharacterBody3D" groups=["PLAYER"]]
@@ -106,23 +116,15 @@ script = ExtResource("1_ecde8")
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.4)
 
-[node name="SmoothCamera" type="Camera3D" parent="CameraPivot"]
+[node name="PlayerCamera" type="Camera3D" parent="CameraPivot" node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -0.4)
 top_level = true
 cull_mask = 1047551
 script = ExtResource("2_ssr7g")
+player = NodePath("../..")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
-remote_path = NodePath("../../../WeaponCamera/SubViewport/Camera3D")
-
-[node name="WeaponHandler" type="Node3D" parent="CameraPivot/SmoothCamera" node_paths=PackedStringArray("weapon_1", "weapon_2")]
-script = ExtResource("3_dodvj")
-weapon_1 = NodePath("Glock")
-weapon_2 = NodePath("Endfield")
-
-[node name="Glock" parent="CameraPivot/SmoothCamera/WeaponHandler" instance=ExtResource("3_g4lid")]
-
-[node name="Endfield" parent="CameraPivot/SmoothCamera/WeaponHandler" instance=ExtResource("4_5m0e4")]
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/PlayerCamera"]
+remote_path = NodePath("../../../WeaponCamera/SubViewport/WeaponCamera")
 
 [node name="GodotRobot" parent="." instance=ExtResource("6_1sjus")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
@@ -146,10 +148,29 @@ handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="WeaponCamera/SubViewport"]
+[node name="WeaponCamera" type="Camera3D" parent="WeaponCamera/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -0.4)
 cull_mask = 1024
 fov = 60.0
+
+[node name="WeaponHandler" type="Node3D" parent="WeaponCamera/SubViewport/WeaponCamera" node_paths=PackedStringArray("weapon_1", "weapon_2", "ammo_label", "ammo_handler")]
+script = ExtResource("3_dodvj")
+weapon_1 = NodePath("Glock")
+weapon_2 = NodePath("Endfield")
+ammo_label = NodePath("../../../../AmmoContainer/AmmoHUD/VerticalAmmoVAlign/AmmoLabel")
+ammo_handler = NodePath("../AmmoHandler")
+max_weapons_carrying = 4
+
+[node name="Glock" parent="WeaponCamera/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("3_g4lid")]
+ammo_max_capacity = 7
+
+[node name="Endfield" parent="WeaponCamera/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("4_5m0e4")]
+ammo_max_capacity = 3
+
+[node name="AmmoHandler" type="Node" parent="WeaponCamera/SubViewport/WeaponCamera" node_paths=PackedStringArray("acquired_ammo_stack", "stored_ammo_label")]
+script = ExtResource("6_7thud")
+acquired_ammo_stack = NodePath("../../../../AmmoContainer/AmmoHUD/AcquiredAmmoMargin/AcquiredAmmoStack")
+stored_ammo_label = NodePath("../../../../AmmoContainer/AmmoHUD/VerticalAmmoVAlign/StoredAmmoLabel")
 
 [node name="AimDot" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -163,32 +184,72 @@ mouse_filter = 2
 layout_mode = 2
 script = ExtResource("3_bsal1")
 
-[node name="ViewFilters" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -288.0
-offset_top = -162.0
-offset_right = -248.0
-offset_bottom = -122.0
-
-[node name="DamageTexture" type="TextureRect" parent="ViewFilters"]
+[node name="DamageTexture" type="TextureRect" parent="."]
 visible = false
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 288.0
-offset_top = 162.0
-offset_right = 1400.0
-offset_bottom = 770.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(576, 324)
 texture = ExtResource("6_ndej4")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AmmoContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="AmmoHUD" type="VBoxContainer" parent="AmmoContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="AcquiredAmmoMargin" type="MarginContainer" parent="AmmoContainer/AmmoHUD"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 12
+
+[node name="AcquiredAmmoStack" type="VBoxContainer" parent="AmmoContainer/AmmoHUD/AcquiredAmmoMargin"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+theme_override_constants/separation = 26
+
+[node name="VerticalAmmoVAlign" type="VBoxContainer" parent="AmmoContainer/AmmoHUD"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = -26
+alignment = 2
+
+[node name="AmmoLabel" type="Label" parent="AmmoContainer/AmmoHUD/VerticalAmmoVAlign"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "ammo_loaded"
+label_settings = SubResource("LabelSettings_a1qjk")
+
+[node name="StoredAmmoLabel" type="Label" parent="AmmoContainer/AmmoHUD/VerticalAmmoVAlign"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "ammo_available"
+label_settings = SubResource("LabelSettings_7thud")
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_cqa75")
+&"": SubResource("AnimationLibrary_cqa75")
 }
 
 [node name="GameOverMenu" parent="." instance=ExtResource("7_qkfmr")]

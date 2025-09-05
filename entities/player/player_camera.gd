@@ -1,6 +1,6 @@
 extends Camera3D
 
-@onready var player: CharacterBody3D = $"../.."
+@export var player: CharacterBody3D
 
 @export var speed := 20.0
 var fps_view_mode: bool = true

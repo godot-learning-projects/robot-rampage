@@ -3,10 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://82efnjp2vpbc" path="res://entities/weapons/weapon.tscn" id="1_gfrgy"]
 [ext_resource type="PackedScene" uid="uid://b8cm82diluxj5" path="res://entities/weapons/glock/glock.tscn" id="2_4l30l"]
 
-[node name="Glock" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_gfrgy")]
+[node name="Glock" node_paths=PackedStringArray("_weapon_mesh") instance=ExtResource("1_gfrgy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.25, -0.4)
+aim_magnification = 0.8
 possible_firing_modes = Array[int]([0, 1, 3])
-weapon_mesh = NodePath("Mesh")
+ammo_type = 4
+_weapon_mesh = NodePath("Mesh")
 
 [node name="CooldownTimer" parent="." index="0"]
 one_shot = true

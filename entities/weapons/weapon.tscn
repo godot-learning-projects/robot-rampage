@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://82efnjp2vpbc"]
 
-[ext_resource type="Script" path="res://entities/weapons/weapon.gd" id="1_pbu5t"]
+[ext_resource type="Script" uid="uid://mrgf4o45f0e7" path="res://entities/weapons/weapon.gd" id="1_pbu5t"]
 [ext_resource type="AudioStream" uid="uid://bvrmmalumrntd" path="res://entities/weapons/glock/SFX/misfire.mp3" id="2_02al5"]
 [ext_resource type="PackedScene" uid="uid://clf0p7njb6pf5" path="res://assets/sparks/sparks.tscn" id="2_sgvq3"]
 [ext_resource type="AudioStream" uid="uid://dvj60mcwiusgu" path="res://entities/weapons/glock/SFX/reload.mp3" id="3_dkp28"]
